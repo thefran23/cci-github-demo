@@ -5,7 +5,6 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -22,7 +21,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error.error.message) {
           errorMessage = error.error.message;
         }
-        this.snackbar.open(errorMessage);
         this.snackbar.open(errorMessage, '×', errorConfig);
         return throwError(error);
       })

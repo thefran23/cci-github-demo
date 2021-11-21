@@ -1,6 +1,6 @@
 import { BehaviorSubject, Subject } from 'rxjs';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { routeParamToFullName } from './core/consts/helpers';
 
 @Component({
