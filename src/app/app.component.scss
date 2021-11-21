@@ -1,0 +1,16 @@
+main {
+  width: 80%;
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
+}
+
+.back-icon {
+  color: #fff;
+  margin-right: 16px;
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+}

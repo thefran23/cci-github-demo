@@ -1,0 +1,39 @@
+:host {
+  width: 100%;
+}
+mat-spinner {
+  margin: auto;
+}
+
+.general-stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.general-stats-row-item {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+mat-icon {
+  margin-left: 16px;
+}
+
+.issue-card {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#chart {
+  max-width: 380px;
+  margin: 35px auto;
+  padding: 0;
+}
+
+@media only screen and (max-width: 426px) {
+  .hidden-on-mobile {
+    display: none;
+  }
+}

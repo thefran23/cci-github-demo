@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <div *ngIf="(header$ | async) !== defaultHeader" routerLink="/repos">
+    <mat-icon class="back-icon">arrow_back</mat-icon>
+  </div>
+  <div>{{ header$ | async }}</div></mat-toolbar
+>
+<main>
+  <router-outlet></router-outlet>
+</main>

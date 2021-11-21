@@ -1,0 +1,118 @@
+<mat-accordion
+  class="example-headers-align"
+  multi
+  *ngIf="repoDetails$ | async; else showLoader"
+>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> General stats </mat-panel-title>
+      <mat-panel-description class="hidden-on-mobile">
+        URL, description, forks count, etc
+        <mat-icon>info</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="general-stats">
+      <mat-card class="general-stats-row-item">
+        <div>URL:</div>
+        <div>
+          <a [href]="(repoDetails$ | async).html_url" target="_blank">{{
+            (repoDetails$ | async).html_url
+          }}</a>
+        </div>
+      </mat-card>
+
+      <mat-card class="general-stats-row-item">
+        <div>Description:</div>
+        <div>
+          <p>{{ (repoDetails$ | async).description }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="general-stats-row-item">
+        <div>Forks Count:</div>
+        <div>
+          <p>{{ (repoDetails$ | async).forks_count }}</p>
+        </div>
+      </mat-card>
+
+      <mat-card class="general-stats-row-item">
+        <div>Stargazers Count:</div>
+        <div>
+          <div>{{ (repoDetails$ | async).stargazers_count }}</div>
+        </div>
+      </mat-card>
+
+      <mat-card class="general-stats-row-item">
+        <div>Open Issues Count:</div>
+        <div>
+          <p>{{ (repoDetails$ | async).open_issues_count }}</p>
+        </div>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="loadIssues($event)">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Current Issues </mat-panel-title>
+      <mat-panel-description class="hidden-on-mobile">
+        Inform the date you wish to travel
+        <mat-icon>construction</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-form-field appearance="fill">
+      <mat-label>Filter Issues</mat-label>
+      <mat-select
+        value="all"
+        (selectionChange)="updateFilter($event.value)"
+        [disabled]="issuesLoading$ | async"
+      >
+        <mat-option
+          *ngFor="let filter of ['all', 'open', 'closed']"
+          [value]="filter"
+        >
+          {{ filter }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="issuesLoading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!(issuesLoading$ | async)">
+      <ng-container *ngFor="let issue of filteredIssues$ | async">
+        <mat-card
+          mat-ripple
+          (click)="navToIssue(issue.html_url)"
+          class="issue-card"
+          >{{ issue.title }}</mat-card
+        >
+      </ng-container>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="loadIssues($event)">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Current Issues Chart </mat-panel-title>
+      <mat-panel-description class="hidden-on-mobile">
+        See how well the repo is built and maintained
+        <mat-icon>pie_chart</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="issuesLoading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-container *ngIf="!(issuesLoading$ | async)">
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive"
+        ></apx-chart>
+      </div>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<ng-template #showLoader>
+  <mat-spinner></mat-spinner>
+</ng-template>

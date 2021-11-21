@@ -1,0 +1,65 @@
+<mat-form-field appearance="fill">
+  <mat-label>Search Repos</mat-label>
+  <input
+    #searchTerm
+    matInput
+    type="text"
+    autocomplete="off"
+    [formControl]="searchTermControl"
+  />
+  <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-spinner *ngIf="showLoader$ | async"></mat-spinner>
+<p
+  *ngIf="
+    !(showLoader$ | async) &&
+    searchTerm.value.length > 0 &&
+    (repos$ | async).length === 0
+  "
+>
+  No results found for search term.
+</p>
+
+<p
+  *ngIf="
+    !(showLoader$ | async) &&
+    searchTerm.value.length === 0 &&
+    (repos$ | async).length === 0
+  "
+>
+  Use the search bar to search for repos.
+</p>
+
+<cdk-virtual-scroll-viewport
+  *ngIf="!(showLoader$ | async) && (repos$ | async).length"
+  appendOnly
+  itemSize="466"
+  class="repos-viewport"
+>
+  <mat-card
+    *cdkVirtualFor="let repo of repos$ | async"
+    class="repo-card"
+    matRipple
+    [matRippleCentered]="true"
+    (click)="navtoRepoDetails(repo.full_name)"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ repo.name }}</mat-card-title>
+      <mat-card-subtitle>{{ repo.full_name }}</mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      class="repo-image"
+      [src]="repo.owner.avatar_url"
+      alt="Repo Avatar Image"
+    />
+    <mat-card-content>
+      <p class="repo-description">
+        {{ repo.description }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</cdk-virtual-scroll-viewport>
