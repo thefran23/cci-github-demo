@@ -9,7 +9,7 @@ import { routeParamToFullName } from './core/consts/helpers';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-  defaultHeader = 'CCI Github Deo by Francois Rossouw';
+  defaultHeader = 'CCI Github Demo by Francois Rossouw';
   header$ = new BehaviorSubject<string>(this.defaultHeader);
   destroyed$: Subject<void> = new Subject<void>();
   constructor(private router: Router) {}
@@ -21,7 +21,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   }
 
   handleRouteChange = (event: any) => {
-    if (event.url !== '/repos') {
+    if (event.url !== '/repos' && event.url !== '/') {
       const fullName = routeParamToFullName(event.url);
       this.header$.next(fullName.replace('/repos/', ''));
     } else {
