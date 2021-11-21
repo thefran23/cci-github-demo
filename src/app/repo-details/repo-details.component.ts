@@ -113,7 +113,6 @@ export class RepoDetailsComponent implements OnInit, OnDestroy {
   getFilteredIssues() {
     return combineLatest([this.issueFilter$, this.repoIssues$]).pipe(
       map(([issueFilter, repoIssues]) => {
-        console.log(issueFilter);
         if (issueFilter === 'all') {
           return repoIssues;
         }

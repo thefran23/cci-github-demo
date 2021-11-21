@@ -6,14 +6,6 @@ export const selectRepoIssuesState =
     fromRepoIssues.repoIssuesFeatureKey
   );
 
-// export const getRepoIssues = createSelector(
-//   selectRepoIssuesState,
-//   (repoIssuesState) => {
-//     console.log('repoIssuesState ', repoIssuesState);
-//     return repoIssuesState.issues;
-//   }
-// );
-
 export const getRepoIssues = createSelector(
   selectRepoIssuesState,
   (repoIssuesState) => {
