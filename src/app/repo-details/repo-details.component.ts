@@ -1,3 +1,4 @@
+import { loadRepoDetailsFailure } from './../core/ngrx/repo-details/repo-details.actions';
 import { BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
 import {
   clearRepoIssues,
@@ -8,7 +9,7 @@ import {
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'src/app/core/ngrx/index';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take, takeUntil, map } from 'rxjs/operators';
 import { Actions, ofType } from '@ngrx/effects';
 import { routeParamToFullName } from '../core/consts/helpers';
@@ -48,10 +49,17 @@ export class RepoDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<fromRoot.State>,
     private route: ActivatedRoute,
-    private actions$: Actions
+    private actions$: Actions,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.actions$
+      .pipe(take(1), ofType(loadRepoDetailsFailure))
+      .subscribe(() => {
+        this.router.navigate([`repos`]);
+      });
+
     this.actions$
       .pipe(
         takeUntil(this.destroyed$),
