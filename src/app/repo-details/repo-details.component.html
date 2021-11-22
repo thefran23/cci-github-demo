@@ -13,7 +13,7 @@
     </mat-expansion-panel-header>
     <div class="general-stats">
       <mat-card class="general-stats-row-item">
-        <div>URL:</div>
+        <div class="general-title">URL:</div>
         <div>
           <a [href]="(repoDetails$ | async).html_url" target="_blank">{{
             (repoDetails$ | async).html_url
@@ -22,28 +22,28 @@
       </mat-card>
 
       <mat-card class="general-stats-row-item">
-        <div>Description:</div>
+        <div class="general-title">Description:</div>
         <div>
           <p>{{ (repoDetails$ | async).description }}</p>
         </div>
       </mat-card>
 
       <mat-card class="general-stats-row-item">
-        <div>Forks Count:</div>
+        <div class="general-title">Forks Count:</div>
         <div>
           <p>{{ (repoDetails$ | async).forks_count }}</p>
         </div>
       </mat-card>
 
       <mat-card class="general-stats-row-item">
-        <div>Stargazers Count:</div>
+        <div class="general-title">Stargazers Count:</div>
         <div>
           <div>{{ (repoDetails$ | async).stargazers_count }}</div>
         </div>
       </mat-card>
 
       <mat-card class="general-stats-row-item">
-        <div>Open Issues Count:</div>
+        <div class="general-title">Open Issues Count:</div>
         <div>
           <p>{{ (repoDetails$ | async).open_issues_count }}</p>
         </div>
